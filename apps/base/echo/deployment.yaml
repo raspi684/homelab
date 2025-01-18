@@ -3,21 +3,25 @@ kind: Deployment
 metadata:
   name: echo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: echo
   template:
+    enableServiceLinks: true
     metadata:
       labels:
         app: echo
-        policy-type: "app"
     spec:
       containers:
         - name: echo
           image: ealen/echo-server
           securityContext:
             allowPrivilegeEscalation: false
+
+          ports:
+            - containerPort: 80
+              protocol: TCP
 
           resources:
             limits:
